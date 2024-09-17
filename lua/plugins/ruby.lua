@@ -1,32 +1,39 @@
-local lspconfig = require("lspconfig")
-
 return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      -- add tsx and treesitter
+      vim.list_extend(opts.ensure_installed, {
+        "ruby",
+      })
+    end,
+  },
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        solargraph = {},
-        marksman = {},
-        ruby_lsp = {
-          -- cmd = { "bundle", "exec", "ruby-lsp" },
-          -- init_options = {
-          --   formatter = "auto",
-          -- },
-        },
+        ruby_lsp = {},
+        ruby_ls = {},
+
         rubocop = {
-          -- See: https://docs.rubocop.org/rubocop/usage/lsp.html
           cmd = { "bundle", "exec", "rubocop", "--lsp" },
-          root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
+          root_dir = require("lspconfig").util.root_pattern("Gemfile", ".git"),
         },
       },
     },
   },
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "ruby" })
-      end
-    end,
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "olimorris/neotest-rspec",
+    },
+    opts = {
+      adapters = {
+        ["neotest-rspec"] = {
+          -- Configure neotest-rspec here
+        },
+      },
+    },
   },
 }
