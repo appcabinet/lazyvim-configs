@@ -16,8 +16,25 @@ vim.keymap.set("n", "<leader>d", function()
   vim.api.nvim_buf_delete(current_buf, { force = false })
 end, { noremap = true, silent = true })
 
--- Bufdelete
--- vim.keymap.set("n", "<leader>d", ":Bdelete<CR>", { noremap = true, silent = true })
---
+vim.keymap.set("n", "<S-D>", function()
+  -- Save the current cursor position
+  local cursor_pos = vim.fn.getpos(".")
+
+  -- Delete the entire buffer content without yanking
+  vim.cmd("silent %d _")
+
+  -- Restore the cursor position
+  vim.fn.setpos(".", cursor_pos)
+end, { desc = "Delete entire page without copying to clipboard" })
+
 -- Delete word (Option+Backspace) when in insert mode
 vim.keymap.set("i", "<M-BS>", "<C-w>", { noremap = true, desc = "Delete word (Option+Backspace)" })
+
+-- Clear all mappings for 's' and reset to default behavior
+vim.cmd("unmap s")
+vim.cmd("unmap S")
+vim.api.nvim_set_keymap("n", "s", "s", { noremap = true })
+vim.api.nvim_set_keymap("n", "S", "S", { noremap = true })
+
+-- Select all text in the current buffer
+vim.keymap.set("n", "<leader>sa", "ggVG", { desc = "Select all text in buffer" })
