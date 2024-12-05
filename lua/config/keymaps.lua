@@ -38,3 +38,9 @@ vim.api.nvim_set_keymap("n", "S", "S", { noremap = true })
 
 -- Select all text in the current buffer
 vim.keymap.set("n", "<leader>sa", "ggVG", { desc = "Select all text in buffer" })
+
+-- Command + S Save
+vim.keymap.set({ "n", "i", "v" }, "<F13>", function()
+  vim.cmd("write")
+  print("File saved!")
+end, { desc = "Save file (CMD+S)" })
