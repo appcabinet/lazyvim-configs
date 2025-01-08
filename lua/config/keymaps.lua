@@ -3,19 +3,6 @@
 -- Add any additional keymaps here
 --
 
-vim.keymap.set("n", "<leader>d", function()
-  local current_buf = vim.api.nvim_get_current_buf()
-  local alternative_buf = vim.fn.bufnr("#")
-
-  if alternative_buf ~= -1 and vim.api.nvim_buf_is_valid(alternative_buf) then
-    vim.api.nvim_set_current_buf(alternative_buf)
-  else
-    vim.cmd("enew")
-  end
-
-  vim.api.nvim_buf_delete(current_buf, { force = false })
-end, { noremap = true, silent = true })
-
 vim.keymap.set("n", "<S-D>", function()
   -- Save the current cursor position
   local cursor_pos = vim.fn.getpos(".")
@@ -40,7 +27,18 @@ vim.api.nvim_set_keymap("n", "S", "S", { noremap = true })
 vim.keymap.set("n", "<leader>sa", "ggVG", { desc = "Select all text in buffer" })
 
 -- Command + S Save
-vim.keymap.set({ "n", "i", "v" }, "<F13>", function()
-  vim.cmd("write")
-  print("File saved!")
-end, { desc = "Save file (CMD+S)" })
+vim.keymap.set({ "n", "i", "v", "s" }, "<D-s>", "<cmd>w<cr>", { desc = "Save file" })
+
+vim.keymap.set("n", "<C-->", "zc", { desc = "Collapse fold" })
+vim.keymap.set("n", "<C-=>", "zo", { desc = "Expand fold" })
+
+-- Explicitly map only yank operations to use system clipboard
+vim.keymap.set({ "n", "v" }, "y", '"+y', { desc = "Yank to system clipboard" })
+vim.keymap.set("n", "Y", '"+Y', { desc = "Yank line to system clipboard" })
+vim.keymap.set("n", "yy", '"+yy', { desc = "Yank line to system clipboard" })
+
+-- Preserve default behavior for delete and change operations
+vim.keymap.set({ "n", "v" }, "d", "d", { desc = "Delete without copying to clipboard" })
+vim.keymap.set({ "n", "v" }, "D", "D", { desc = "Delete to end of line without copying to clipboard" })
+vim.keymap.set({ "n", "v" }, "c", "c", { desc = "Change without copying to clipboard" })
+vim.keymap.set({ "n", "v" }, "C", "C", { desc = "Change to end of line without copying to clipboard" })

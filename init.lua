@@ -11,11 +11,3 @@ vim.api.nvim_create_autocmd("FileType", {
     })
   end,
 })
-
--- auto correct on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.rb",
-  callback = function()
-    vim.lsp.buf.format()
-  end,
-})

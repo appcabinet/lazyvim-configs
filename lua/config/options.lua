@@ -21,3 +21,6 @@ opts = function()
     { "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
   })
 end
+
+-- lua/config/options.lua
+vim.opt.clipboard = "" -- Disable automatic clipboard integration (Logic updated in keymaps.lua)
