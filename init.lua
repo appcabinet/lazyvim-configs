@@ -11,3 +11,8 @@ vim.api.nvim_create_autocmd("FileType", {
     })
   end,
 })
+
+-- Example: mapping gx to followNextLink
+vim.api.nvim_set_keymap("n", "gx", ":FollowNextLink<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "ga", ":FollowNextLink<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "gd", ":FollowNextLink<CR>", { noremap = true, silent = true })

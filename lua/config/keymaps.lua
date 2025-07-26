@@ -31,14 +31,3 @@ vim.keymap.set({ "n", "i", "v", "s" }, "<D-s>", "<cmd>w<cr>", { desc = "Save fil
 
 vim.keymap.set("n", "<C-->", "zc", { desc = "Collapse fold" })
 vim.keymap.set("n", "<C-=>", "zo", { desc = "Expand fold" })
-
--- Explicitly map only yank operations to use system clipboard
-vim.keymap.set({ "n", "v" }, "y", '"+y', { desc = "Yank to system clipboard" })
-vim.keymap.set("n", "Y", '"+Y', { desc = "Yank line to system clipboard" })
-vim.keymap.set("n", "yy", '"+yy', { desc = "Yank line to system clipboard" })
-
--- Preserve default behavior for delete and change operations
-vim.keymap.set({ "n", "v" }, "d", "d", { desc = "Delete without copying to clipboard" })
-vim.keymap.set({ "n", "v" }, "D", "D", { desc = "Delete to end of line without copying to clipboard" })
-vim.keymap.set({ "n", "v" }, "c", "c", { desc = "Change without copying to clipboard" })
-vim.keymap.set({ "n", "v" }, "C", "C", { desc = "Change to end of line without copying to clipboard" })
